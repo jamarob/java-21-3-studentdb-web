@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class StudentService {
@@ -24,5 +25,19 @@ public class StudentService {
 
     public Optional<Student> findById(String id) {
         return studentRepository.findById(id);
+    }
+
+    public Student updateStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    public Student createStudent(Student student) {
+        String id = UUID.randomUUID().toString();
+        Student newStudent = new Student(id, student.getName());
+        return studentRepository.save(newStudent);
+    }
+
+    public Optional<Student> deleteStudent(String id) {
+        return studentRepository.deleteById(id);
     }
 }

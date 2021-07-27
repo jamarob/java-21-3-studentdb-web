@@ -32,4 +32,23 @@ public class StudentRepository {
         }
         return Optional.empty();
     }
+
+    public Student save(Student student){
+        for(Student aStudent: students){
+            if(aStudent.getId().equals(student.getId())){
+                aStudent.setName(student.getName());
+                return aStudent;
+            }
+        }
+        students.add(student);
+        return student;
+    }
+
+    public Optional<Student> deleteById(String id) {
+        Optional<Student> optionalStudent = findById(id);
+        if(optionalStudent.isPresent()){
+            students.remove(optionalStudent.get());
+        }
+        return optionalStudent;
+    }
 }
